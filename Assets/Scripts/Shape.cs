@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,21 +26,19 @@ public class Shape : MonoBehaviour {
         }
     }
 
-    void RotateClockwise() {
-        foreach (Transform child in transform) {
-            Vector3 normalizedPosition = child.position - transform.position;
-            Vector3 rotationInX = InvertAll(normalizedPosition.x - centerOffset.x);
-            Vector3 rotationInY = InvertOnlyY(normalizedPosition.y - centerOffset.y);
-
-            child.position += rotationInX + rotationInY;
-        }
+    private void RotateClockwise() {
+        Rotate(InvertAll, InvertOnlyY);
     }
     
-    void RotateCounterClockwise() {
+    private void RotateCounterClockwise() {
+        Rotate(InvertOnlyX, InvertAll);
+    }
+
+    private void Rotate(Func<float, Vector3> xFun, Func<float, Vector3> yFun) {
         foreach (Transform child in transform) {
             Vector3 normalizedPosition = child.position - transform.position;
-            Vector3 rotationInX = InvertOnlyX(normalizedPosition.x - centerOffset.x);
-            Vector3 rotationInY = InvertAll(normalizedPosition.y - centerOffset.y);
+            Vector3 rotationInX = xFun(normalizedPosition.x - centerOffset.x);
+            Vector3 rotationInY = yFun(normalizedPosition.y - centerOffset.y);
 
             child.position += rotationInX + rotationInY;
         }
