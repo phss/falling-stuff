@@ -20,7 +20,7 @@ public class Shape : MonoBehaviour {
         if ((Time.fixedTime - timeSinceLastDrop) > 1) {
             // transform.Translate(new Vector3(0, -1, 0));
             // timeSinceLastDrop = Time.fixedTime;
-            RotateClockwise();
+            RotateCounterClockwise();
             timeSinceLastDrop = Time.fixedTime;
         }
     }
@@ -28,17 +28,34 @@ public class Shape : MonoBehaviour {
     void RotateClockwise() {
         foreach (Transform child in transform) {
             Vector3 normalizedPosition = child.position - transform.position;
-            Vector3 rotationInX = GetRotationInX(normalizedPosition.x - centerOffset.x);
-            Vector3 rotationInY = GetRotationInY(normalizedPosition.y - centerOffset.y);
+            Vector3 rotationInX = InvertAll(normalizedPosition.x - centerOffset.x);
+            Vector3 rotationInY = InvertOnlyY(normalizedPosition.y - centerOffset.y);
+
+            child.position += rotationInX + rotationInY;
+        }
+    }
+    
+    void RotateCounterClockwise() {
+        foreach (Transform child in transform) {
+            Vector3 normalizedPosition = child.position - transform.position;
+            Vector3 rotationInX = InvertOnlyX(normalizedPosition.x - centerOffset.x);
+            Vector3 rotationInY = InvertAll(normalizedPosition.y - centerOffset.y);
 
             child.position += rotationInX + rotationInY;
         }
     }
 
-    private Vector3 GetRotationInX(float x) {
-        return new Vector3(x * -1, x * -1, 0f);
+    private Vector3 InvertAll(float n) {
+        return new Vector3(n, n, 0f) * -1;
     }
-    private Vector3 GetRotationInY(float y) {
-        return new Vector3(y, y * -1, 0f);
+
+    private Vector3 InvertOnlyX(float n) {
+        return new Vector3(n * -1, n, 0f);
     }
+
+    private Vector3 InvertOnlyY(float n) {
+        return new Vector3(n, n * -1, 0f);
+    }
+
+
 }
