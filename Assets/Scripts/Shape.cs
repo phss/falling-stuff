@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Shape : MonoBehaviour {
 
+    public Vector2 centerOffset = new Vector2(0f, 0f);
+
     private float timeSinceLastDrop = 0;
 
     void Start() {
@@ -26,8 +28,8 @@ public class Shape : MonoBehaviour {
     void RotateClockwise() {
         foreach (Transform child in transform) {
             Vector3 normalizedPosition = child.position - transform.position;
-            Vector3 rotationInX = GetRotationInX(normalizedPosition.x);
-            Vector3 rotationInY = GetRotationInY(normalizedPosition.y);
+            Vector3 rotationInX = GetRotationInX(normalizedPosition.x - centerOffset.x);
+            Vector3 rotationInY = GetRotationInY(normalizedPosition.y - centerOffset.y);
 
             child.position += rotationInX + rotationInY;
         }
