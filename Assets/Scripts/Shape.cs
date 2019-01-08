@@ -10,11 +10,11 @@ public class Shape : MonoBehaviour {
     private float timeSinceLastDrop = 0;
 
     void Start() {
-        Debug.Log(transform.position);
-        Debug.Log(transform.GetChild(0).transform.position);
-        Debug.Log(transform.GetChild(1).transform.position);
-        Debug.Log(transform.GetChild(2).transform.position);
-        Debug.Log(transform.GetChild(3).transform.position);
+        Debug.Log(transform.localPosition);
+        Debug.Log(transform.GetChild(0).transform.localPosition);
+        Debug.Log(transform.GetChild(1).transform.localPosition);
+        Debug.Log(transform.GetChild(2).transform.localPosition);
+        Debug.Log(transform.GetChild(3).transform.localPosition);
     }
 
     void Update() {
@@ -36,10 +36,8 @@ public class Shape : MonoBehaviour {
 
     private void Rotate(Func<float, Vector3> xFun, Func<float, Vector3> yFun) {
         foreach (Transform child in transform) {
-            Vector3 normalizedPosition = child.position - transform.position;
-            Vector3 rotationInX = xFun(normalizedPosition.x - centerOffset.x);
-            Vector3 rotationInY = yFun(normalizedPosition.y - centerOffset.y);
-
+            Vector3 rotationInX = xFun(child.localPosition.x - centerOffset.x);
+            Vector3 rotationInY = yFun(child.localPosition.y - centerOffset.y);
             child.position += rotationInX + rotationInY;
         }
     }
