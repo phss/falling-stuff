@@ -5,14 +5,12 @@ using UnityEngine;
 public class Board : MonoBehaviour {
 
     public Vector2Int dimensions;
+    public GameObject shape;
+
     public Transform[,] boardBlocks;
 
     void Start() {
         boardBlocks = new Transform[dimensions.x, dimensions.y];  
-    }
-
-    void Update() {
-        
     }
 
     public void Add(Shape shape) {
@@ -25,6 +23,8 @@ public class Board : MonoBehaviour {
         foreach (Transform block in local) {
             block.parent = transform;
         }
+        // ClearCompletedRows();
+        StartNewShape();
     }
 
     public bool CanFitShape(Shape shape) {
@@ -34,5 +34,14 @@ public class Board : MonoBehaviour {
             }
         }
         return true;
+    }
+
+    private void ClearCompletedRows() {
+
+    }
+
+    private void StartNewShape() {
+        GameObject newShape = Instantiate(shape, transform) as GameObject;
+        newShape.transform.localPosition = new Vector3(4f, 19f, 0f);
     }
 }
