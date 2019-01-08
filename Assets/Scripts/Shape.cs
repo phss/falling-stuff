@@ -5,11 +5,10 @@ using UnityEngine;
 
 public class Shape : MonoBehaviour {
     protected Board board;
-
+    
     void Start() {
         board = transform.parent.GetComponent<Board>();
     }
-
     protected bool AttemptMove(Vector3 movement) {
         transform.position += movement;
         if (!board.CanFitShape(this)) {

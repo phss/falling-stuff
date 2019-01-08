@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class Board : MonoBehaviour {
 
+    public GameObject nextShape;
     public Vector2Int dimensions;
-    public GameObject shape;
 
     public Transform[,] boardBlocks;
 
+    private RandomShapeFactory shapeFactory;
+
+
     void Start() {
         boardBlocks = new Transform[dimensions.x, dimensions.y];  
+        shapeFactory = nextShape.GetComponent<RandomShapeFactory>();
+        StartNewShape();
     }
 
     public void Add(Shape shape) {
@@ -41,7 +46,8 @@ public class Board : MonoBehaviour {
     }
 
     private void StartNewShape() {
-        GameObject newShape = Instantiate(shape, transform) as GameObject;
+        GameObject newShape = shapeFactory.Next();
+        newShape.transform.parent = transform;
         newShape.transform.localPosition = new Vector3(4f, 19f, 0f);
     }
 }
