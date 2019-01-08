@@ -4,19 +4,32 @@ using UnityEngine;
 
 public class Board : MonoBehaviour {
 
-    public Vector2 dimensions;
+    public Vector2Int dimensions;
+    public Transform[,] boardBlocks;
 
     void Start() {
-        
+        boardBlocks = new Transform[dimensions.x, dimensions.y];  
     }
 
     void Update() {
         
     }
 
+    public void Add(Shape shape) {
+        List<Transform> local = new List<Transform>();
+        foreach (Transform block in shape.transform) {
+            Vector3 blockPosition = shape.transform.localPosition + block.localPosition;
+            boardBlocks[(int) blockPosition.x, (int) blockPosition.y] = block;
+            local.Add(block);
+        }
+        foreach (Transform block in local) {
+            block.parent = transform;
+        }
+    }
+
     public bool IsValid(Shape shape) {
         foreach (Vector3 position in shape.GetBlockPositions()) {
-            if (position.x < 0 || position.x >= dimensions.x || position.y < 0 || position.y >= dimensions.y) {
+            if (position.x < 0 || position.x >= dimensions.x || position.y < 0 || position.y >= dimensions.y || boardBlocks[(int) position.x, (int) position.y] != null) {
                 return false;
             }
         }

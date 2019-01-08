@@ -22,17 +22,23 @@ public class Shape : MonoBehaviour {
             timeSinceLastMove = Time.fixedTime;
         }
 
-        if ((Time.fixedTime - timeSinceLastDrop) > 1f) {
-            Move(Vector3.down);
+        if ((Time.fixedTime - timeSinceLastDrop) > 0.1f) {
+            bool didMove = Move(Vector3.down);
+            if (!didMove) {
+                board.Add(this);
+                Destroy(gameObject);
+            }
             timeSinceLastDrop = Time.fixedTime;
         }
     }
 
-    private void Move(Vector3 movement) {
+    private bool Move(Vector3 movement) {
         transform.position += movement;
         if (!board.IsValid(this)) {
             transform.position += movement * -1;
+            return false;
         }
+        return true;
     }
     
     public List<Vector3> GetBlockPositions() {
