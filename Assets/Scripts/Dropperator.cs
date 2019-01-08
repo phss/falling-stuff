@@ -11,13 +11,10 @@ public class Dropperator : Shape {
     void Update() {
         if (IsSpacePressed()) {
             while(AttemptDrop());
-        } else if ((Time.fixedTime - timeSinceLastManualDrop) > 0.1f && IsDownPressed()) {
+        } else if (ShouldManuallyDrop() || ShouldAutomaticallyDrop()) {
             AttemptDrop();
             timeSinceLastAutoDrop = Time.fixedTime;
             timeSinceLastManualDrop = Time.fixedTime;
-        } else if ((Time.fixedTime - timeSinceLastAutoDrop) > 1f) {
-            AttemptDrop();
-            timeSinceLastAutoDrop = Time.fixedTime;
         }
     }
 
@@ -28,6 +25,14 @@ public class Dropperator : Shape {
             Destroy(gameObject);
         }
         return didMove;
+    }
+
+    private bool ShouldManuallyDrop() {
+        return (Time.fixedTime - timeSinceLastManualDrop) > 0.1f && IsDownPressed(); 
+    }
+
+    private bool ShouldAutomaticallyDrop() {
+        return (Time.fixedTime - timeSinceLastAutoDrop) > 1f;
     }
 
     private bool IsSpacePressed() {
