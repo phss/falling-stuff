@@ -5,21 +5,9 @@ using UnityEngine;
 
 public class Shape : MonoBehaviour {
     protected Board board;
-    private float timeSinceLastDrop = 0;
 
     void Start() {
         board = transform.parent.GetComponent<Board>();
-    }
-
-    void Update() {
-        if ((Time.fixedTime - timeSinceLastDrop) > 1f) {
-            bool didMove = AttemptMove(Vector3.down);
-            if (!didMove) {
-                board.Add(this);
-                Destroy(gameObject);
-            }
-            timeSinceLastDrop = Time.fixedTime;
-        }
     }
 
     protected bool AttemptMove(Vector3 movement) {
