@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3822596926432595776}
   - component: {fileID: 4269494067255829070}
   - component: {fileID: 7418672403647099783}
+  - component: {fileID: 754841832739736127}
   m_Layer: 0
   m_Name: I Shape
   m_TagString: Untagged
@@ -61,6 +62,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerOffset: {x: -0.5, y: -0.5}
+--- !u!114 &754841832739736127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3822596926432595777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fde3862a71f74c4e836c328efe13cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3822596926452017915
 PrefabInstance:
   m_ObjectHideFlags: 0
