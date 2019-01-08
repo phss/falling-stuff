@@ -5,14 +5,19 @@ using UnityEngine;
 
 // Dropper was taken
 public class Dropperator : Shape {
-    private float timeSinceLastDrop = 0;
+    private float timeSinceLastAutoDrop = 0;
+    private float timeSinceLastManualDrop = 0;
 
     void Update() {
-        if (Input.GetButtonDown("Jump")) {
+        if (IsSpacePressed()) {
             while(AttemptDrop());
-        } else if ((Time.fixedTime - timeSinceLastDrop) > 1f) {
+        } else if ((Time.fixedTime - timeSinceLastManualDrop) > 0.1f && IsDownPressed()) {
             AttemptDrop();
-            timeSinceLastDrop = Time.fixedTime;
+            timeSinceLastAutoDrop = Time.fixedTime;
+            timeSinceLastManualDrop = Time.fixedTime;
+        } else if ((Time.fixedTime - timeSinceLastAutoDrop) > 1f) {
+            AttemptDrop();
+            timeSinceLastAutoDrop = Time.fixedTime;
         }
     }
 
@@ -23,5 +28,13 @@ public class Dropperator : Shape {
             Destroy(gameObject);
         }
         return didMove;
+    }
+
+    private bool IsSpacePressed() {
+        return Input.GetButtonDown("Jump");
+    }
+
+    private bool IsDownPressed() {
+        return Input.GetAxis("Vertical") < 0f;
     }
 }

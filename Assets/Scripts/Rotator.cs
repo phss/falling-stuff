@@ -9,7 +9,7 @@ public class Rotator : Shape {
     private bool canRotate = true;
 
     void Update() {
-        if (IsUpDown()) {
+        if (IsUpPressed()) {
             if (canRotate) {
                 canRotate = false;
                 RotateClockwise();
@@ -22,7 +22,7 @@ public class Rotator : Shape {
         }
     }
     
-    private bool IsUpDown() {
+    private bool IsUpPressed() {
         return Input.GetAxis("Vertical") > 0f;
     }
 
