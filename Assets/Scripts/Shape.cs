@@ -7,23 +7,39 @@ public class Shape : MonoBehaviour {
 
     public Vector2 centerOffset = new Vector2(0f, 0f);
 
-    private float timeSinceLastDrop = 0;
+    private Board board;
+    private float timeSinceLastMove = 0;
 
     void Start() {
-        Debug.Log(transform.localPosition);
-        Debug.Log(transform.GetChild(0).transform.localPosition);
-        Debug.Log(transform.GetChild(1).transform.localPosition);
-        Debug.Log(transform.GetChild(2).transform.localPosition);
-        Debug.Log(transform.GetChild(3).transform.localPosition);
+        board = transform.parent.GetComponent<Board>();
+
+        Debug.Log(board);
+        // Debug.Log(transform.localPosition);
+        // foreach (Vector3 pos in GetBlockPositions()) {
+        //     Debug.Log(pos);
+        // }
     }
 
     void Update() {
-        if ((Time.fixedTime - timeSinceLastDrop) > 1) {
-            // transform.Translate(new Vector3(0, -1, 0));
-            // timeSinceLastDrop = Time.fixedTime;
-            RotateCounterClockwise();
-            timeSinceLastDrop = Time.fixedTime;
+        if ((Time.fixedTime - timeSinceLastMove) > 0.1f) {
+            int horizontal = (int) Input.GetAxis("Horizontal");
+            Vector3 movement = new Vector3(horizontal, 0f, 0f);
+
+            transform.position += movement;
+            if (!board.IsValid(this)) {
+                transform.position += movement * -1;
+            }
+
+            timeSinceLastMove = Time.fixedTime;
         }
+    }
+    
+    public List<Vector3> GetBlockPositions() {
+        List<Vector3> positions = new List<Vector3>();
+        foreach (Transform child in transform) {
+            positions.Add(transform.localPosition + child.localPosition);
+        }
+        return positions;
     }
 
     private void RotateClockwise() {
