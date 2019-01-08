@@ -8,29 +8,30 @@ public class Shape : MonoBehaviour {
     public Vector2 centerOffset = new Vector2(0f, 0f);
 
     private Board board;
+    private float timeSinceLastDrop = 0;
     private float timeSinceLastMove = 0;
 
     void Start() {
         board = transform.parent.GetComponent<Board>();
-
-        Debug.Log(board);
-        // Debug.Log(transform.localPosition);
-        // foreach (Vector3 pos in GetBlockPositions()) {
-        //     Debug.Log(pos);
-        // }
     }
 
     void Update() {
         if ((Time.fixedTime - timeSinceLastMove) > 0.1f) {
             int horizontal = (int) Input.GetAxis("Horizontal");
-            Vector3 movement = new Vector3(horizontal, 0f, 0f);
-
-            transform.position += movement;
-            if (!board.IsValid(this)) {
-                transform.position += movement * -1;
-            }
-
+            Move(new Vector3(horizontal, 0f, 0f));
             timeSinceLastMove = Time.fixedTime;
+        }
+
+        if ((Time.fixedTime - timeSinceLastDrop) > 1f) {
+            Move(Vector3.down);
+            timeSinceLastDrop = Time.fixedTime;
+        }
+    }
+
+    private void Move(Vector3 movement) {
+        transform.position += movement;
+        if (!board.IsValid(this)) {
+            transform.position += movement * -1;
         }
     }
     
