@@ -27,7 +27,7 @@ public class Board : MonoBehaviour {
         }
     }
 
-    public bool IsValid(Shape shape) {
+    public bool CanFitShape(Shape shape) {
         foreach (Vector3 position in shape.GetBlockPositions()) {
             if (position.x < 0 || position.x >= dimensions.x || position.y < 0 || position.y >= dimensions.y || boardBlocks[(int) position.x, (int) position.y] != null) {
                 return false;
