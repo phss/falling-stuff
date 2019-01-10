@@ -9,6 +9,10 @@ public class Board : MonoBehaviour {
 
     public Transform[,] boardBlocks;
 
+    public float fallingSpeed;
+    private int speedCounter = 0;
+    private float speedIncreaseDelta = 0.03f;
+
     private RandomShapeFactory shapeFactory;
 
     public void ResetBoard() {
@@ -18,6 +22,8 @@ public class Board : MonoBehaviour {
         boardBlocks = new Transform[dimensions.x, dimensions.y];  
         shapeFactory = nextShape.GetComponent<RandomShapeFactory>();
         StartNewShape();
+        fallingSpeed = 1f;
+        speedCounter = 0;
     }
 
     public bool CanFitShape(ShapeControl shape) {
@@ -61,6 +67,13 @@ public class Board : MonoBehaviour {
 
         if (linesCleared > 0) {
             BoardEvents.ClearedLines(linesCleared);
+
+            speedCounter += linesCleared;
+            if (speedCounter >= 4) {
+                BoardEvents.IncreaseSpeed();
+                fallingSpeed -= speedIncreaseDelta;
+                speedCounter -= linesCleared;
+            }
         }
     }
 

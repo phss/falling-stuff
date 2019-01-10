@@ -15,6 +15,11 @@ public class ScoreUpdater : MonoBehaviour {
 
        GameEvents.OnNewGame += ResetScore;
        BoardEvents.OnLinesCleared += AddToScore;
+       BoardEvents.OnSpeedIncreased += IncreaseLevel;
+    }
+
+    private void IncreaseLevel() {
+        level++;
     }
 
     private void ResetScore() {

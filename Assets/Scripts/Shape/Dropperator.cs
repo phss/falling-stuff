@@ -32,7 +32,7 @@ public class Dropperator : ShapeControl {
     }
 
     private bool ShouldAutomaticallyDrop() {
-        return (Time.fixedTime - timeSinceLastAutoDrop) > 1f;
+        return (Time.fixedTime - timeSinceLastAutoDrop) > board.fallingSpeed;
     }
 
     private bool IsSpacePressed() {
