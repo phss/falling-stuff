@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Dropper was taken
-public class Dropperator : Shape {
+public class Dropperator : ShapeControl {
     private float timeSinceLastAutoDrop = 0;
     private float timeSinceLastManualDrop = 0;
 

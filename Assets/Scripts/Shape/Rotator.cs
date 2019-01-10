@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rotator : Shape {
+public class Rotator : ShapeControl {
     public Vector2 centerOffset = new Vector2(0f, 0f);
     
     private bool canRotate = true;

@@ -27,7 +27,7 @@ public class RandomShapeFactory : MonoBehaviour {
     }
 
     private void SetScriptStatus(GameObject shape, bool enabled) {
-        foreach (Shape script in shape.GetComponents<Shape>()) {
+        foreach (ShapeControl script in shape.GetComponents<ShapeControl>()) {
             script.enabled = enabled;
         }
     }

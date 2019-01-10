@@ -21,7 +21,7 @@ public class Board : MonoBehaviour {
         StartNewShape();
     }
 
-    public bool CanFitShape(Shape shape) {
+    public bool CanFitShape(ShapeControl shape) {
         foreach (Vector3 position in shape.GetBlockPositions()) {
             bool outOfBounds = position.x < 0 || position.x >= dimensions.x || position.y < 0 || position.y >= dimensions.y;
 
@@ -32,13 +32,13 @@ public class Board : MonoBehaviour {
         return true;
     }
 
-    public void Add(Shape shape) {
+    public void Add(ShapeControl shape) {
         AddBlocksFrom(shape);
         ClearCompletedRows();
         StartNewShape();
     }
 
-    private void AddBlocksFrom(Shape shape) {
+    private void AddBlocksFrom(ShapeControl shape) {
         List<Transform> local = new List<Transform>();
         foreach (Transform block in shape.transform) {
             Vector3 blockPosition = shape.transform.localPosition + block.localPosition;

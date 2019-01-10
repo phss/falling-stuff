@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shape : MonoBehaviour {
+public class ShapeControl : MonoBehaviour {
     protected Board board;
     
     void Start() {

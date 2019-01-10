@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mover : Shape {
+public class Mover : ShapeControl {
     public float repeatMoveTime = 0.3f;
     public float subsequentMovesTime = 0.05f;
 
