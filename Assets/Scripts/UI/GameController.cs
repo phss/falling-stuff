@@ -12,6 +12,12 @@ public class GameController : MonoBehaviour {
         GameEvents.OnNewGame += Enable;
         GameEvents.OnContinue += Enable;
         GameEvents.OnPause += Disable;
+        GameEvents.OnGameOver += Disable;
+    }
+    void Update() {
+        if (Input.GetButtonDown("Cancel")) {
+            GameEvents.Pause();
+        }
     }
 
     void Start() {
@@ -24,11 +30,5 @@ public class GameController : MonoBehaviour {
 
     void Disable() {
         gameObject.SetActive(false);
-    }
-
-    void Update() {
-        if (Input.GetButtonDown("Cancel")) {
-            GameEvents.Pause();
-        }
     }
 }

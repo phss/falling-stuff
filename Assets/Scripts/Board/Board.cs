@@ -77,7 +77,6 @@ public class Board : MonoBehaviour {
                 fallingSpeed = Mathf.Max(fallingSpeed - speedIncreaseDelta, lowestSpeed);
                 speedCounter = 0;
                 BoardEvents.IncreaseSpeed();
-                Debug.Log(fallingSpeed);
             }
         }
     }
@@ -113,5 +112,9 @@ public class Board : MonoBehaviour {
         GameObject newShape = shapeFactory.Next();
         newShape.transform.parent = transform;
         newShape.transform.localPosition = new Vector3(4f, 19f, 0f);
+
+        if (!CanFitShape(newShape.GetComponent<ShapeControl>())) {
+            GameEvents.GameOver();
+        }
     }
 }
