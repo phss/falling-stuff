@@ -8,10 +8,6 @@ public class SplashController : MonoBehaviour {
         GameEvents.OnNewGame += Hide;
     }
 
-    void Start() {
-        GameEvents.Start(); 
-    }
-
     void Update() {
         if (Input.GetButtonDown("Submit")) {
             GameEvents.StartNewGame();
