@@ -11,14 +11,34 @@ public class Board : MonoBehaviour {
 
     private RandomShapeFactory shapeFactory;
 
+    void Awake() {
+        GameEvents.OnNewGame += ResetBoard;
+        GameEvents.OnNewGame += Enable;
+        GameEvents.OnContinue += Enable;
+        GameEvents.OnPause += Disable;
+    }
 
-    void Start() {
+    void ResetBoard() {
         foreach (Transform child in transform) {
             Destroy(child.gameObject);
         }
         boardBlocks = new Transform[dimensions.x, dimensions.y];  
         shapeFactory = nextShape.GetComponent<RandomShapeFactory>();
         StartNewShape();
+    }
+
+    void Enable() {
+        gameObject.SetActive(true);
+    }
+
+    void Disable() {
+        gameObject.SetActive(false);
+    }
+
+    void Update() {
+        if (Input.GetButtonDown("Cancel")) {
+            GameEvents.Pause();
+        }
     }
 
     public bool CanFitShape(ShapeControl shape) {
