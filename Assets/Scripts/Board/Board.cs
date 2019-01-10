@@ -32,6 +32,7 @@ public class Board : MonoBehaviour {
     }
 
     public void Add(ShapeControl shape) {
+        BoardEvents.ShapeStopped();
         AddBlocksFrom(shape);
         ClearCompletedRows();
         StartNewShape();
@@ -50,10 +51,16 @@ public class Board : MonoBehaviour {
     }
 
     private void ClearCompletedRows() {
+        int linesCleared = 0;
         for (int row = dimensions.y - 1; row >= 0; row--) {
             if (IsRowFilled(row)) {
                 ClearRow(row);
+                linesCleared++;
             }
+        }
+
+        if (linesCleared > 0) {
+            BoardEvents.ClearedLines(linesCleared);
         }
     }
 

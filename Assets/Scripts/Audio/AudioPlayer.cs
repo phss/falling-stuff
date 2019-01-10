@@ -8,6 +8,8 @@ public class AudioPlayer : MonoBehaviour {
         GameEvents.OnStart += PlaySplashSound;
         GameEvents.OnNewGame += PlayNewGameSound;
         GameEvents.OnPause += PlayPauseSound;
+        BoardEvents.OnShapeStopped += PlayShapeDroppedSound;
+        BoardEvents.OnLinesCleared += PlayLinesClearedSound;
     }
 
     private void PlaySplashSound() {
@@ -20,6 +22,14 @@ public class AudioPlayer : MonoBehaviour {
 
     private void PlayPauseSound() {
         GetComponents<AudioSource>()[2].Play();
+    }
+
+    private void PlayShapeDroppedSound() {
+        GetComponents<AudioSource>()[3].Play();
+    }
+
+    private void PlayLinesClearedSound(int linesCleared) {
+        GetComponents<AudioSource>()[4].Play();
     }
 
 }
