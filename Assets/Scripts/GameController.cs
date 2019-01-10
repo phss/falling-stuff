@@ -14,13 +14,10 @@ public class GameController : MonoBehaviour {
     public GameObject board;
 
     private GameState state;
-    private AudioSource startGameSound;
-    private AudioSource pauseSound;
 
     void Start() {
         state = GameState.Splash;
-        startGameSound = GetComponents<AudioSource>()[0];
-        pauseSound = GetComponents<AudioSource>()[1];
+        GameEvents.Start();
     }
 
     void Update() {
@@ -41,18 +38,18 @@ public class GameController : MonoBehaviour {
 
     private void StartGame() {
         state = GameState.Playing;
-        startGameSound.Play();
         splashImage.SetActive(false);
         pause.SetActive(false);
         board.SetActive(true);
         board.SendMessage("Start");
+        GameEvents.StartNewGame();
     }
 
     private void Pause() {
         state = GameState.Paused;
-        pauseSound.Play();
         board.SetActive(false);
         pause.SetActive(true);
+        GameEvents.Pause();
     }
 
     private void Unpause() {
