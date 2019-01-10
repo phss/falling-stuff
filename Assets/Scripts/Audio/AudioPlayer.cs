@@ -13,23 +13,30 @@ public class AudioPlayer : MonoBehaviour {
     }
 
     private void PlaySplashSound() {
-        GetComponents<AudioSource>()[0].Play();
+        Play(0);
     }
 
     private void PlayNewGameSound() {
+        Play(1);
         GetComponents<AudioSource>()[1].Play();
     }
 
     private void PlayPauseSound() {
+        Play(2);
         GetComponents<AudioSource>()[2].Play();
     }
 
     private void PlayShapeDroppedSound() {
+        Play(3);
         GetComponents<AudioSource>()[3].Play();
     }
 
     private void PlayLinesClearedSound(int linesCleared) {
-        GetComponents<AudioSource>()[4].Play();
+        Play(4);
+    }
+
+    private void Play(int soundIndex) {
+       GetComponents<AudioSource>()[soundIndex].Play();
     }
 
 }
