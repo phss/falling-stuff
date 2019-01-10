@@ -9,9 +9,13 @@ public class Board : MonoBehaviour {
 
     public Transform[,] boardBlocks;
 
+    public float initialFallingSpeed;
+    public float speedIncreaseDelta;
+    public float lowestSpeed;
+
+
     public float fallingSpeed;
     private int speedCounter = 0;
-    private float speedIncreaseDelta = 0.03f;
 
     private RandomShapeFactory shapeFactory;
 
@@ -22,7 +26,7 @@ public class Board : MonoBehaviour {
         boardBlocks = new Transform[dimensions.x, dimensions.y];  
         shapeFactory = nextShape.GetComponent<RandomShapeFactory>();
         StartNewShape();
-        fallingSpeed = 1f;
+        fallingSpeed = initialFallingSpeed;
         speedCounter = 0;
     }
 
@@ -70,9 +74,10 @@ public class Board : MonoBehaviour {
 
             speedCounter += linesCleared;
             if (speedCounter >= 4) {
+                fallingSpeed = Mathf.Max(fallingSpeed - speedIncreaseDelta, lowestSpeed);
+                speedCounter = 0;
                 BoardEvents.IncreaseSpeed();
-                fallingSpeed -= speedIncreaseDelta;
-                speedCounter -= linesCleared;
+                Debug.Log(fallingSpeed);
             }
         }
     }

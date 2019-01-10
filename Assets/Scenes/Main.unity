@@ -968,6 +968,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextShape: {fileID: 997650163}
   dimensions: {x: 10, y: 20}
+  initialFallingSpeed: 1
+  speedIncreaseDelta: 0.05
+  lowestSpeed: 0.1
+  fallingSpeed: 0
 --- !u!114 &1099077630
 MonoBehaviour:
   m_ObjectHideFlags: 0
