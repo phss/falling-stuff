@@ -30,7 +30,7 @@ public class GameController : MonoBehaviour {
             Pause();
         } else if (state == GameState.Paused) {
             if (Input.GetButtonDown("Cancel")) {
-                StartGame();
+                Unpause();
             } else if (Input.GetButtonDown("Quit")) {
                 Application.Quit();
             } else if (Input.GetButtonDown("Restart")) {
@@ -45,6 +45,7 @@ public class GameController : MonoBehaviour {
         splashImage.SetActive(false);
         pause.SetActive(false);
         board.SetActive(true);
+        board.SendMessage("Start");
     }
 
     private void Pause() {
@@ -54,4 +55,10 @@ public class GameController : MonoBehaviour {
         pause.SetActive(true);
     }
 
+    private void Unpause() {
+        state = GameState.Playing;
+        splashImage.SetActive(false);
+        pause.SetActive(false);
+        board.SetActive(true);
+    }
 }

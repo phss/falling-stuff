@@ -13,6 +13,9 @@ public class Board : MonoBehaviour {
 
 
     void Start() {
+        foreach (Transform child in transform) {
+            Destroy(child.gameObject);
+        }
         boardBlocks = new Transform[dimensions.x, dimensions.y];  
         shapeFactory = nextShape.GetComponent<RandomShapeFactory>();
         StartNewShape();
